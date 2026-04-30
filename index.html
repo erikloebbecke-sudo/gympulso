@@ -268,7 +268,7 @@ function renderApp() {
     ? '<div style="font-size:11px;color:#555;margin-top:2px;letter-spacing:0.04em">' + state.activeWorkout.date.slice(0,10) + (state.activeWorkout.gym ? ' · ' + state.activeWorkout.gym : '') + '</div>'
     : '';
   const topbar = `<div class="topbar">
-    <div>
+    <div style="flex:1;min-width:0;">
       <div class="topbar-title">${tabTitle}</div>
       ${workoutSubtitle}
     </div>
