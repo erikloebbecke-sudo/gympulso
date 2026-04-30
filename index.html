@@ -265,7 +265,7 @@ function renderApp() {
   if (state.tab === "settings")  content = renderSettingsTab();
   
   const workoutSubtitle = state.activeWorkout && state.tab === "workout" 
-    ? `<div style="font-size:11px;color:#555;margin-top:2px;letter-spacing:0.04em">${state.activeWorkout.date.slice(0,10)}${state.activeWorkout.gym ? ' · ' + state.activeWorkout.gym : ''}</div>`
+    ? '<div style="font-size:11px;color:#555;margin-top:2px;letter-spacing:0.04em">' + state.activeWorkout.date.slice(0,10) + (state.activeWorkout.gym ? ' · ' + state.activeWorkout.gym : '') + '</div>'
     : '';
   const topbar = `<div class="topbar">
     <div>
@@ -818,7 +818,7 @@ function bindApp() {
     try {
       // Use Nominatim OpenStreetMap search for fitness/gym places
       const res = await fetch(
-        \`https://nominatim.openstreetmap.org/search?q=\${encodeURIComponent(q)}&format=json&limit=6&addressdetails=1&extratags=1\`,
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=json&limit=6&addressdetails=1&extratags=1`,
         { headers: { "Accept-Language": "de" } }
       );
       const data = await res.json();
