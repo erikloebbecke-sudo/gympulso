@@ -324,15 +324,10 @@ function renderWorkoutTab() {
     }).join("");
 
     return `
-      <div class="header">
-        <div style="flex:1">
-          <div class="header-title">Aktives Training</div>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:8px;flex-wrap:wrap;">
-            <input type="date" id="workout-date" value="${w.date.slice(0,10)}" style="width:auto;flex:0 0 auto;padding:5px 8px;font-size:12px;">
-            ${w.gym ? `<span style="font-size:12px;color:#555">${iconLocation()} ${w.gym}</span>` : ""}
-          </div>
-        </div>
-        <button id="finish-workout" class="btn btn-primary btn-sm" style="flex-shrink:0;align-self:flex-start;width:auto">${iconCheck()} Fertig</button>
+      <div style="display:flex;align-items:center;gap:8px;padding:var(--s3) var(--gutter);background:#000;border-bottom:1px solid #111;">
+        <input type="date" id="workout-date" value="${w.date.slice(0,10)}" style="width:auto;flex:0 0 auto;padding:5px 8px;font-size:12px;">
+        ${w.gym ? `<span style="font-size:12px;color:#555;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${iconLocation()} ${w.gym}</span>` : `<span style="flex:1"></span>`}
+        <button id="finish-workout" class="btn btn-primary btn-sm" style="flex-shrink:0;width:auto">${iconCheck()} Fertig</button>
       </div>
       <div class="page-content">
         ${exBlocks}
@@ -350,7 +345,6 @@ function renderWorkoutTab() {
     </div>`).join("");
 
   return `
-    <div class="header"><div class="header-title">Training</div></div>
     <div class="page-content">
       <div class="section-label">Starten</div>
       <button id="start-free" class="btn btn-primary">${iconPlay()} Freies Training</button>
@@ -373,7 +367,6 @@ function renderHistoryTab() {
   }).join("");
 
   return `
-    <div class="header"><div class="header-title">Verlauf</div></div>
     <div class="page-content">
       ${state.workouts.length === 0
         ? `<div class="empty"><div class="empty-text">Noch kein Training</div><div class="empty-sub">Starte dein erstes Training!</div></div>`
@@ -406,7 +399,6 @@ function renderExercisesTab() {
     </div>`).join("");
 
   return `
-    <div class="header"><div class="header-title">Übungen</div></div>
     <div class="page-content">
       <div class="chip-scroll">
         <span class="chip${sub==="exercises"?" active":""}" data-extab="exercises">Übungen</span>
@@ -461,7 +453,6 @@ function renderStatsTab() {
   const chart = chartData.length >= 1 ? buildChart(chartData) : "";
 
   return `
-    <div class="header"><div class="header-title">Statistik</div></div>
     <div class="page-content">
       <div class="section-label">Übung</div>
       <select id="stats-ex"><option value="">-- Übung wählen --</option>${opts}</select>
@@ -522,12 +513,8 @@ function renderSettingsTab() {
     </div>`).join("");
 
   return `
-    <div class="header">
-      <div class="header-title">Einstellungen</div>
-      <button id="logout-btn" class="btn btn-ghost btn-sm" style="width:auto;flex-shrink:0;align-self:flex-start">Logout</button>
-    </div>
     <div class="page-content">
-      <div style="padding:12px 20px 8px;font-size:12px;color:#555">${state.user?.email}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 20px 8px;"><span style="font-size:12px;color:#555">${state.user?.email}</span><button id="logout-btn" class="btn btn-ghost btn-sm" style="width:auto">Logout</button></div>
       <div class="section-label">Daten</div>
       <button id="export-btn" class="btn btn-ghost">${iconDownload()} Backup herunterladen</button>
       <label class="btn btn-ghost" style="cursor:pointer">${iconUpload()} Backup importieren<input id="import-input" type="file" accept=".json" style="display:none"></label>
@@ -1020,11 +1007,11 @@ input,select,textarea{-webkit-user-select:text;user-select:text;font-family:var(
 input:focus,select:focus{background:var(--surface3)}
 select option{background:#111}
 
-.app{max-width:480px;margin:0 auto;height:100vh;height:100dvh;display:flex;flex-direction:column;background:#000;overflow:hidden;width:100%}
-.tab-root{width:100%;display:flex;flex-direction:column;flex:1;min-height:0;overflow:hidden}
-.page-content{flex:1;overflow-y:auto;overflow-x:hidden;padding:var(--s2) 0 20px;-webkit-overflow-scrolling:touch;max-width:100%}
+.app{max-width:480px;margin:0 auto;width:100%;background:#000;}
+.tab-root{width:100%;display:flex;flex-direction:column;min-height:100dvh;padding-top:52px;padding-bottom:65px;}
+.page-content{overflow-y:auto;overflow-x:hidden;padding:var(--s2) 0 20px;-webkit-overflow-scrolling:touch;max-width:100%;}
 
-.nav{display:flex;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:var(--s2) 0 var(--s4);width:100%;flex-shrink:0}
+.nav{display:flex;background:rgba(0,0,0,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:var(--s2) 0 var(--s4);width:100%;max-width:480px;position:fixed;bottom:0;left:50%;transform:translateX(-50%);z-index:100;}
 .nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:var(--s1);padding:var(--s2);color:var(--muted);font-size:10px;letter-spacing:.06em;text-transform:uppercase;transition:color .15s}
 .nav-btn.active{color:var(--text)}
 .nav-btn svg{width:20px;height:20px}
